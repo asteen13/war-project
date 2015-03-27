@@ -7,8 +7,11 @@ public class War {
 		Scanner input = new Scanner(System.in);
 		int[] deck;
 		
-		
-		
+		deck = new int[51];
+		for (int i = 0; i <= 51; i++) {
+			deck[i] = i;
+		}
+		 System.out.print(deck);
 	}
 	
 	public static void highestCard(int card1, int card2) {
