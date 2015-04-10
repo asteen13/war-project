@@ -8,38 +8,32 @@ public class war {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		int[] deck = null;
-		int[] hand1 = new int[52];
+		int[] myHand = new int[52];
 		int[] hand2 = new int[52];
+		
 //		Introduce the whole deck.
 		String[] card = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
 		String[] suit = {"Spades", "Hearts", "Clubs", "Diamonds"};
 		
 		deck = makeDeck();
-		hand1 = dealHands(deck);
 		
-		for (int i = 0; i <= 26; i++)
-			System.out.println(hand1);
+		// Deals the hands
+		for (int i=0; i<52; i++) {
+			if (i % 2 == 0) {
+				myHand[i/2] = deck[i];
+			}
+			else 
+				hand2[i/2] = deck[i];
+		}
 		
-		for (int i=0; i < 4; i++) {
-			String suit1 = suit[deck[i] / 13];
-			String rank = card[deck[i] % 13];
-			System.out.println("Card number " + deck[i+1] + ": " + rank + " of " + suit1);
+		for (int i=0; i < 26; i++) {
+			String suit1 = suit[myHand[i] / 13];
+			String rank = card[myHand[i] % 13];
+			System.out.println("Card number " + myHand[i+1] + ": " + rank + " of " + suit1);
 		}
 		
 	}
 	
-	public static void highestCard(int card1, int card2) {
-		if (card1 > card2)
-			JOptionPane.showMessageDialog(null, "You win.");
-		else if (card1 < card2)
-			JOptionPane.showMessageDialog(null, "You lose.");
-		else if (card1 == card2) {
-			int card3, card4;
-			//card3 = next card from player deck
-			//card4 = next card from computer deck
-			
-		}
-	}
 	public static int[] makeDeck() {
 		// Initializes and shuffles the deck.
 		int temp, tempCard;
@@ -57,14 +51,6 @@ public class war {
 		return deck;
 	}
 	
-	public static int[] dealHands(int[] deck) {
-		int[] hand1 = null;
-		for (int i = 0; i <= deck.length-1; i++) {
-			for (int j = 0; j <= 26; j++){
-				if ((deck[i] & 1) == 0)
-					hand1[j] = deck[i];
-			}
-		}
-		return hand1;
-	}
 }
+
+
