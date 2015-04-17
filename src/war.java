@@ -11,7 +11,7 @@ public class war {
 		int[] myHand = new int[52];
 		int[] hand2 = new int[52];
 		
-//		Introduce the whole deck.
+		//	Introduce the whole deck.
 		String[] card = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
 		String[] suit = {"Spades", "Hearts", "Clubs", "Diamonds"};
 		
@@ -42,13 +42,43 @@ public class war {
 		for (int i = 0; i <= deck.length-1; i++) 
 			deck[i] = i;
 		
-		for (int i = 0; i <= deck.length-1; i++){
+		for (int i = 0; i <= deck.length-1; i++) {
 			tempCard = (int)(Math.random() * 52);
 			temp = deck[i];
 			deck[i] = deck[tempCard];
 			deck[tempCard] = temp;
 		}
 		return deck;
+	}
+	
+	
+	
+	public static void playRound(int[] myHand, int[] hand2) {
+		
+	}
+	
+	public static void printResults(Card playerOneCard, Card playerTwoCard) {
+		
+	}
+	
+	public static void removeTopCard(Card[] deck) {
+		
+	}
+	
+	public static void addCardtoBottom(Card[] deck, Card[] newCard) {
+		
+	}
+	
+	public static int compareCards(Card card1, Card card2) {
+		
+	}
+	
+	public static boolean hasCards(Card[] deck) {
+		
+	}
+	
+	public static int countCards(Card[] deck) {
+		
 	}
 	
 }
