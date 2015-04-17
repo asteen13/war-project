@@ -1,6 +1,5 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 //	Let's play a game of War!
@@ -57,27 +56,30 @@ public class war {
 		
 	}
 	
-	public static void printResults(Card playerOneCard, Card playerTwoCard) {
+	public static void printResults(int playerOneCard, int playerTwoCard) {
 		
 	}
 	
-	public static void removeTopCard(Card[] deck) {
+	public static void removeTopCard(int[] deck) {
 		
 	}
 	
-	public static void addCardtoBottom(Card[] deck, Card[] newCard) {
+	public static void addCardtoBottom(int[] deck, int[] newCard) {
 		
 	}
 	
-	public static int compareCards(Card card1, Card card2) {
+	public static int compareCards(int card1, int card2) {
+		int highCard;
+		highCard = Math.max(card1, card2);
+		return highCard;
 		
 	}
 	
-	public static boolean hasCards(Card[] deck) {
+	public static boolean hasCards(int[] deck) {
 		
 	}
 	
-	public static int countCards(Card[] deck) {
+	public static int countCards(int[] deck) {
 		
 	}
 	
