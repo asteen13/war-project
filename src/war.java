@@ -6,13 +6,12 @@ import javax.swing.JOptionPane;
 public class war {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		int[] deck = null;
-		int[] myHand = new int[52];
-		int[] hand2 = new int[52];
+		Card[] deck = null;
+		Card[] myHand = new Card[52];
+		Card[] hand2 = new Card[52];
 		
 		//	Introduce the whole deck.
-		String[] card = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
-		String[] suit = {"Spades", "Hearts", "Clubs", "Diamonds"};
+		
 		
 		deck = makeDeck();
 		
@@ -25,34 +24,43 @@ public class war {
 				hand2[i/2] = deck[i];
 		}
 		
-		for (int i=0; i < 26; i++) {
-			String suit1 = suit[myHand[i] / 13];
-			String rank = card[myHand[i] % 13];
-			System.out.println("Card number " + myHand[i+1] + ": " + rank + " of " + suit1);
+		for (int i=0; i < 52; i++) {
+			System.out.println((deck[i].value)%13 + " of " + deck[i].suit);
 		}
-		
+		System.out.println(countCards(myHand));
 	}
 	
-	public static int[] makeDeck() {
+	public static Card[] makeDeck() {
 		// Initializes and shuffles the deck.
-		int temp, tempCard;
+		int temp1, temp2;
+		Card tempCard;
 		
-		int[] deck = new int[52];
-		for (int i = 0; i <= deck.length-1; i++) 
-			deck[i] = i;
-		
+		Card[] deck = new Card[52];
 		for (int i = 0; i <= deck.length-1; i++) {
-			tempCard = (int)(Math.random() * 52);
-			temp = deck[i];
-			deck[i] = deck[tempCard];
-			deck[tempCard] = temp;
+			deck[i] = new Card();
+			deck[i].value = i;
+			if (i == 0 || i < 13)
+				deck[i].suit = "Spades";
+			else if (i == 13 || i < 26)
+				deck[i].suit = "Hearts";
+			else if (i == 26 || i < 39)
+				deck[i].suit = "Clubs";
+			else deck[i].suit = "Diamonds";
 		}
+		for (int i = 0; i <= 100; i++) {
+			temp1 = (int)(Math.random() * 52);
+			temp2 = (int)(Math.random() * 52);
+			tempCard = deck[temp1];
+			deck[temp1] = deck[temp2];
+			deck[temp2] = tempCard;
+		}
+		
 		return deck;
 	}
 	
 	
 	
-	public static void playRound(int[] myHand, int[] hand2) {
+	public static void playRound(Card[] myHand, Card[] hand2) {
 		
 	}
 	
@@ -60,11 +68,19 @@ public class war {
 		
 	}
 	
-	public static void removeTopCard(int[] deck) {
+	public static void removeTopCard(Card[] hand) {
+		for (int i = 0; i < hand.length-1; i++)
+			hand[i] = hand[i+1];
 		
 	}
 	
-	public static void addCardtoBottom(int[] deck, int[] newCard) {
+	public static void addCardtoBottom(Card[] deck, Card newCard) {
+		for (int i = 0; i < deck.length; i++) {
+			if (deck[i] == null) {
+				deck[i] = newCard;
+				return;
+			}
+		}
 		
 	}
 	
@@ -75,12 +91,23 @@ public class war {
 		
 	}
 	
-	public static boolean hasCards(int[] deck) {
-		
+	public static boolean hasCards(Card[] deck) {
+		for (int i=0; i < deck.length; i ++) {
+			if (deck[i] != null)
+				return true;
+		}
+		return false;
 	}
 	
-	public static int countCards(int[] deck) {
+	public static int countCards(Card[] deck) {
+		int cardsLeft;
+		cardsLeft = 0;
 		
+		for (int i = 0; i < deck.length; i++){
+			if (deck[i] != null)
+				cardsLeft++;
+		}
+		return cardsLeft;
 	}
 	
 }
