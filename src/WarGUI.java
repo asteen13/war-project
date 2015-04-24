@@ -9,7 +9,7 @@ public class WarGUI extends JFrame {
 	public static Card playerCard = new Card();
 	public static Card computerCard = new Card();
 	
-	public static void getCard(Card[] deck, Card[] deck2){
+	public static void getCard(Card[] deck, Card[] deck2) {
 		playerCard = deck[0];
 		computerCard = deck2[0];
 	}
