@@ -44,6 +44,7 @@ public class war {
 	
 	public static Card[] makeDeck() {
 		// Initializes and shuffles the deck.
+		
 		int temp1, temp2;
 		Card tempCard;
 	
@@ -51,7 +52,7 @@ public class war {
 			deck[i] = new Card();
 			deck[i].value = i % 13 + 1;
 		
-			// Assigns the rank of each card
+			// Assigns the rank of each card.
 			if (deck[i].value == 1)
 				deck[i].rank = "Ace";
 			else if (deck[i].value == 11)
@@ -63,7 +64,7 @@ public class war {
 			else 
 				deck[i].rank = Integer.toString(deck[i].value);
 			
-			// Assigns the suit of each card
+			// Assigns the suit of each card.
 			if (i == 0 || i < 13)
 				deck[i].suit = "Spades";
 			else if (i == 13 || i < 26)
@@ -73,7 +74,7 @@ public class war {
 			else deck[i].suit = "Diamonds";
 		}
 		
-		// Shuffles the deck
+		// Shuffles the deck.
 		for (int i = 0; i <= 10000; i++) {
 			temp1 = (int)(Math.random() * 52);
 			temp2 = (int)(Math.random() * 52);
@@ -84,22 +85,25 @@ public class war {
 		
 		return deck;
 	}
+	
 	public static void shufflePlayerDeck(Card[] deck) {
+		// Shuffles the deck of each player.
+		
 		int temp1, temp2;
 		Card tempCard;
 		
-				// Shuffles the deck
-				for (int i = 0; i <= 10000; i++) {
-					temp1 = (int)(Math.random() * 26);
-					temp2 = (int)(Math.random() * 26);
-					tempCard = deck[temp1];
-					deck[temp1] = deck[temp2];
-					deck[temp2] = tempCard;
-				}
+		for (int i = 0; i <= 10000; i++) {
+			temp1 = (int)(Math.random() * 26);
+			temp2 = (int)(Math.random() * 26);
+			tempCard = deck[temp1];
+			deck[temp1] = deck[temp2];
+			deck[temp2] = tempCard;
+		}
 	}
 	
 	public static void dealHands(Card[] deck) {
-	// Deals the hands
+	// Deals the hands.
+		
 		for (int i=0; i<52; i++) {
 			if (i % 2 == 0) {
 				myHand[i/2] = deck[i];
@@ -110,6 +114,8 @@ public class war {
 	}	
 		
 	public static void playRound(Card[] myHand, Card[] hand2) {
+		// Plays a round.
+		
 		Card[] pot = new Card[52];
 		Card playerOneCard, playerTwoCard;
 		int compResult;
@@ -168,10 +174,11 @@ public class war {
 			}
 		}
 	}
-		
-	
 	
 	public static void printResults(Card playerOneCard, Card playerTwoCard) {
+		// Tells what card was drawn by each player, and which player wins or 
+		// if there is a war.
+		
 		int result;
 		
 		System.out.println("Player one draws " + playerOneCard.rank+ " of " +
@@ -189,12 +196,16 @@ public class war {
 	}
 	
 	public static void removeTopCard(Card[] hand) {
+		// Removes the first card from the deck.
+		
 		for (int i = 0; i < hand.length-1; i++)
 			hand[i] = hand[i+1];
 		
 	}
 	
 	public static void addCardToBottom(Card[] deck, Card newCard) {
+		// Adds a won card to the winner's deck.
+		
 		for (int i = 0; i < deck.length; i++) {
 			if (deck[i] == null) {
 				deck[i] = newCard;
@@ -205,6 +216,11 @@ public class war {
 	}
 	
 	public static int compareCards(Card card1, Card card2) {
+		// Compares two cards to determine which has a higher value.
+		// A value of 0 means a tie, a positive value means player one's
+		// card is higher, and a negative value means player two's card
+		// is higher.
+		
 		if ((card1.rank) == (card2.rank)) 
 			return 0;
 		else if ((card1.rank) == "Ace")
@@ -219,6 +235,8 @@ public class war {
 	}
 	
 	public static boolean hasCards(Card[] deck) {
+		// Checks to see if a deck has any cards in it.
+		
 		for (int i=0; i < deck.length; i ++) {
 			if (deck[i] != null)
 				return true;
@@ -227,6 +245,8 @@ public class war {
 	}
 	
 	public static int numCardsRemaining(Card[] deck) {
+		// Counts the number of cards in a deck and returns this value.
+		
 		int cardsLeft;
 		cardsLeft = 0;
 		
