@@ -1,6 +1,7 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
 import java.util.Scanner;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 //	Let's play a game of War!
 public class war {
@@ -26,11 +27,11 @@ public class war {
 				System.out.println("Player One is out of cards! \nPlayer Two Wins!");
 			if (!hasCards(hand2))
 				System.out.println("Player Two is out of cards! \nPlayer One Wins!");
-			//if (roundsPlayed == 300) {
-			//	System.out.println("Game over.");
-			//	System.out.println("number of wars: " + numberOfWars);
-			//	System.exit(0);
-			//}
+			if (roundsPlayed == 1000) {
+				System.out.println("Game over.");
+				System.out.println("number of wars: " + numberOfWars);
+				System.exit(0);
+			}
 		}
 		
 		
