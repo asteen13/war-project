@@ -1,5 +1,5 @@
 
 public class Card {
 	public int value;
-	public String suit;
+	public String suit, rank;
 }
