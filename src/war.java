@@ -1,13 +1,17 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
+<<<<<<< HEAD
 import java.util.Scanner;
+=======
+import java.util.*;
+>>>>>>> origin/master
 import javax.swing.*;
 import java.awt.*;
 
 //	Let's play a game of War!
 public class war {
 	public static Card[] deck = new Card[52];
-	public static Card[] myHand = new Card[52];
-	public static Card[] hand2 = new Card[52];
+	public static Card[] playerDeck = new Card[52];
+	public static Card[] computerDeck = new Card[52];
 	public static int roundsPlayed, numberOfWars;
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -15,17 +19,17 @@ public class war {
 		
 		deck = makeDeck();
 		dealHands(deck);
-		shufflePlayerDeck(myHand);
-		shufflePlayerDeck(hand2);
+		shufflePlayerDeck(playerDeck);
+		shufflePlayerDeck(computerDeck);
 		
-		while (hasCards(myHand) && hasCards(hand2)) {
-			System.out.println("Card Count: \nPlayer One: " + numCardsRemaining(myHand) 
-					+ "\nPlayer Two: " + numCardsRemaining(hand2) + "\n");
-			playRound(myHand, hand2);
+		while (hasCards(playerDeck) && hasCards(computerDeck)) {
+			System.out.println("Card Count: \nPlayer One: " + numCardsRemaining(playerDeck) 
+					+ "\nPlayer Two: " + numCardsRemaining(computerDeck) + "\n");
+			playRound(playerDeck, computerDeck);
 			
-			if (!hasCards(myHand))
+			if (!hasCards(playerDeck))
 				System.out.println("Player One is out of cards! \nPlayer Two Wins!");
-			if (!hasCards(hand2))
+			if (!hasCards(computerDeck))
 				System.out.println("Player Two is out of cards! \nPlayer One Wins!");
 			if (roundsPlayed == 1000) {
 				System.out.println("Game over.");
@@ -105,14 +109,14 @@ public class war {
 		
 		for (int i=0; i<52; i++) {
 			if (i % 2 == 0) {
-				myHand[i/2] = deck[i];
+				playerDeck[i/2] = deck[i];
 			}
 			else 
-				hand2[i/2] = deck[i];
+				computerDeck[i/2] = deck[i];
 		}
 	}	
 		
-	public static void playRound(Card[] myHand, Card[] hand2) {
+	public static void playRound(Card[] playerDeck, Card[] computerDeck) {
 		// Plays a round.
 		
 		Card[] pot = new Card[52];
@@ -122,12 +126,12 @@ public class war {
 		roundsPlayed++;
 		System.out.println("Next Round!");
 		
-		playerOneCard = myHand[0];
-		playerTwoCard = hand2[0];
+		playerOneCard = playerDeck[0];
+		playerTwoCard = computerDeck[0];
 		
-		removeTopCard(myHand);
+		removeTopCard(playerDeck);
 		addCardToBottom(pot, playerOneCard);
-		removeTopCard(hand2);
+		removeTopCard(computerDeck);
 		addCardToBottom(pot, playerTwoCard);
 		
 		compResult = compareCards(playerOneCard, playerTwoCard);
@@ -136,23 +140,23 @@ public class war {
 		while (compResult == 0) {
 			numberOfWars++;
 			for (int i = 0; i < 3; i++) {
-				if (!hasCards(myHand) || !hasCards(hand2))
+				if (!hasCards(playerDeck) || !hasCards(computerDeck))
 					return;
-				addCardToBottom(pot, myHand[0]);
-				addCardToBottom(pot, hand2[0]);
-				removeTopCard(myHand);
-				removeTopCard(hand2);
+				addCardToBottom(pot, playerDeck[0]);
+				addCardToBottom(pot, computerDeck[0]);
+				removeTopCard(playerDeck);
+				removeTopCard(computerDeck);
 			}
 			
-			if (!hasCards(myHand) || !hasCards(hand2))
+			if (!hasCards(playerDeck) || !hasCards(computerDeck))
 				return;
 			
-			playerOneCard = myHand[0];
-			playerTwoCard = hand2[0];
+			playerOneCard = playerDeck[0];
+			playerTwoCard = computerDeck[0];
 			
-			removeTopCard(myHand);
+			removeTopCard(playerDeck);
 			addCardToBottom(pot, playerOneCard);
-			removeTopCard(hand2);
+			removeTopCard(computerDeck);
 			addCardToBottom(pot, playerTwoCard);
 			
 			compResult = compareCards(playerOneCard, playerTwoCard);
@@ -161,13 +165,13 @@ public class war {
 			
 		if (compResult > 0) {
 			while (hasCards(pot)) {
-				addCardToBottom(myHand, pot[0]);
+				addCardToBottom(playerDeck, pot[0]);
 				removeTopCard(pot);
 			}	
 		}
 		else if (compResult < 0) {
 			while (hasCards(pot)) {
-				addCardToBottom(hand2, pot[0]);
+				addCardToBottom(computerDeck, pot[0]);
 				removeTopCard(pot);
 			}
 		}
