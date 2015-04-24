@@ -17,22 +17,20 @@ public class war {
 		shufflePlayerDeck(myHand);
 		shufflePlayerDeck(hand2);
 		
-		//System.out.println(numCardsRemaining(myHand) + " " + numCardsRemaining(hand2));
-		
 		while (hasCards(myHand) && hasCards(hand2)) {
 			System.out.println("Card Count: \nPlayer One: " + numCardsRemaining(myHand) 
 					+ "\nPlayer Two: " + numCardsRemaining(hand2) + "\n");
 			playRound(myHand, hand2);
 			
 			if (!hasCards(myHand))
-				System.out.println("Player Two Wins.");
+				System.out.println("Player One is out of cards! \nPlayer Two Wins!");
 			if (!hasCards(hand2))
-				System.out.println("Player One Wins.");
-			if (roundsPlayed == 15000) {
-				System.out.println("Game over.");
-				System.out.println("number of wars: " + numberOfWars);
-				System.exit(0);
-			}
+				System.out.println("Player Two is out of cards! \nPlayer One Wins!");
+			//if (roundsPlayed == 300) {
+			//	System.out.println("Game over.");
+			//	System.out.println("number of wars: " + numberOfWars);
+			//	System.exit(0);
+			//}
 		}
 		
 		
@@ -135,7 +133,6 @@ public class war {
 		printResults(playerOneCard, playerTwoCard);
 		
 		while (compResult == 0) {
-			roundsPlayed++;
 			numberOfWars++;
 			for (int i = 0; i < 3; i++) {
 				if (!hasCards(myHand) || !hasCards(hand2))
@@ -221,11 +218,11 @@ public class war {
 		// card is higher, and a negative value means player two's card
 		// is higher.
 		
-		if ((card1.rank) == (card2.rank)) 
+		if (card1.value == card2.value) 
 			return 0;
-		else if ((card1.rank) == "Ace")
+		else if (card1.value == 1)
 			return 1;
-		else if ((card2.rank) == "Ace")
+		else if (card2.value == 1)
 			return -1;
 		else if (card1.value > card2.value)
 			return 1;
