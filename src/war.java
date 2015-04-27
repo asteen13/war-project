@@ -1,5 +1,9 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
+<<<<<<< HEAD
 import java.util.Scanner;
+=======
+
+>>>>>>> origin/master
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +38,17 @@ public class war {
 				System.out.println("Player Two is out of cards! \nPlayer One Wins!");
 			if (roundsPlayed == 1000) {
 				System.out.println("Game over.");
-				System.out.println("number of wars: " + numberOfWars);
+				System.out.println("Number of wars: " + numberOfWars);
+				
+				if (numCardsRemaining(playerDeck) > numCardsRemaining(computerDeck)) {
+					System.out.println("Player One Wins!");
+				}
+				else if (numCardsRemaining(playerDeck) < numCardsRemaining(computerDeck)) {
+					System.out.println("Player Two Wins!");
+				}
+				else if (numCardsRemaining(playerDeck) == numCardsRemaining(computerDeck)) {
+					System.out.println("The game ends in a Draw!");
+				}
 				System.exit(0);
 			}
 		}
