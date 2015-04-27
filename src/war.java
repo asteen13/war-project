@@ -1,9 +1,7 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
-<<<<<<< HEAD
-import java.util.Scanner;
-=======
 
->>>>>>> origin/master
+import java.util.Scanner;
+
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
