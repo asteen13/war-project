@@ -1,9 +1,6 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
-<<<<<<< HEAD
 import java.util.Scanner;
-=======
 import java.util.*;
->>>>>>> origin/master
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +12,7 @@ public class war {
 	public static int roundsPlayed, numberOfWars;
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		
+		int dialogueResponse;
 		
 		deck = makeDeck();
 		dealHands(deck);
@@ -26,7 +23,11 @@ public class war {
 			System.out.println("Card Count: \nPlayer One: " + numCardsRemaining(playerDeck) 
 					+ "\nPlayer Two: " + numCardsRemaining(computerDeck) + "\n");
 			playRound(playerDeck, computerDeck);
-			
+			dialogueResponse = JOptionPane.showConfirmDialog(null, "Play next round?");
+			if (dialogueResponse == JOptionPane.NO_OPTION){
+				JOptionPane.showMessageDialog(null, "Game Over.");
+				break;
+			}	
 			if (!hasCards(playerDeck))
 				System.out.println("Player One is out of cards! \nPlayer Two Wins!");
 			if (!hasCards(computerDeck))
@@ -122,6 +123,7 @@ public class war {
 		Card[] pot = new Card[52];
 		Card playerOneCard, playerTwoCard;
 		int compResult;
+		String roundResults;
 		
 		roundsPlayed++;
 		System.out.println("Next Round!");
@@ -135,7 +137,8 @@ public class war {
 		addCardToBottom(pot, playerTwoCard);
 		
 		compResult = compareCards(playerOneCard, playerTwoCard);
-		printResults(playerOneCard, playerTwoCard);
+		roundResults = printResults(playerOneCard, playerTwoCard);
+		WarGUI.showResults(playerOneCard, playerTwoCard, roundResults);
 		
 		while (compResult == 0) {
 			numberOfWars++;
@@ -160,7 +163,8 @@ public class war {
 			addCardToBottom(pot, playerTwoCard);
 			
 			compResult = compareCards(playerOneCard, playerTwoCard);
-			printResults(playerOneCard, playerTwoCard);
+			roundResults = printResults(playerOneCard, playerTwoCard);
+			WarGUI.showResults(playerOneCard, playerTwoCard, roundResults);
 		}
 			
 		if (compResult > 0) {
@@ -177,7 +181,7 @@ public class war {
 		}
 	}
 	
-	public static void printResults(Card playerOneCard, Card playerTwoCard) {
+	public static String printResults(Card playerOneCard, Card playerTwoCard) {
 		// Tells what card was drawn by each player, and which player wins or 
 		// if there is a war.
 		
@@ -190,11 +194,11 @@ public class war {
 		result = compareCards(playerOneCard, playerTwoCard);
 		
 		if (result == 0)
-			System.out.println("War!\n");
+			return "War!\n";
 		else if (result > 0)
-			System.out.println("Player one wins this round.\n");
+			return "Player one wins this round.\n";
 		else 
-			System.out.println("Player two wins this round.\n");
+			return "Player two wins this round.\n";
 	}
 	
 	public static void removeTopCard(Card[] hand) {
