@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class WarGUI extends JFrame {
 
 
-	public static void showResults(Card playerCard, Card computerCard, String winner) {
+	public static void showResults(Card playerCard, Card computerCard, String winner) throws InterruptedException {
 
 		JFrame F = new JFrame("War!");
 		JPanel P1Card, P2Card, PBottom;
@@ -33,9 +33,12 @@ public class WarGUI extends JFrame {
 		F.add(PBottom);
 		F.setLayout(new FlowLayout());
 		F.setSize(280, 150);
-		F.setLocation(540, 95);
+		F.setLocationRelativeTo(null);
 		F.setVisible(true);
 		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		Thread.sleep(5000);
+		F.setVisible(false);
 	}
 	private class theHandler implements ActionListener {
 		public void actionPerformed(ActionEvent event){

@@ -1,9 +1,9 @@
 //	Test everything using Scanner first and switch to JOptionPane when we're all done.
 
-import java.util.Scanner;
-
 import java.util.*;
+
 import javax.swing.*;
+
 import java.awt.*;
 
 //	Let's play a game of War!
@@ -12,7 +12,7 @@ public class war {
 	public static Card[] playerDeck = new Card[52];
 	public static Card[] computerDeck = new Card[52];
 	public static int roundsPlayed, numberOfWars;
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Scanner input = new Scanner(System.in);
 		int dialogueResponse;
 		
@@ -25,11 +25,8 @@ public class war {
 			System.out.println("Card Count: \nPlayer One: " + numCardsRemaining(playerDeck) 
 					+ "\nPlayer Two: " + numCardsRemaining(computerDeck) + "\n");
 			playRound(playerDeck, computerDeck);
-			dialogueResponse = JOptionPane.showConfirmDialog(null, "Play next round?");
-			if (dialogueResponse == JOptionPane.NO_OPTION){
-				JOptionPane.showMessageDialog(null, "Game Over.");
-				break;
-			}	
+			
+				
 			if (!hasCards(playerDeck))
 				System.out.println("Player One is out of cards! \nPlayer Two Wins!");
 			if (!hasCards(computerDeck))
@@ -129,7 +126,7 @@ public class war {
 		}
 	}	
 		
-	public static void playRound(Card[] playerDeck, Card[] computerDeck) {
+	public static void playRound(Card[] playerDeck, Card[] computerDeck) throws InterruptedException {
 		// Plays a round.
 		
 		Card[] pot = new Card[52];
@@ -151,6 +148,7 @@ public class war {
 		compResult = compareCards(playerOneCard, playerTwoCard);
 		roundResults = printResults(playerOneCard, playerTwoCard);
 		WarGUI.showResults(playerOneCard, playerTwoCard, roundResults);
+		
 		
 		while (compResult == 0) {
 			numberOfWars++;
