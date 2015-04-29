@@ -15,7 +15,7 @@ public class war {
 		shufflePlayerDeck(computerDeck);
 		
 		JOptionPane.showMessageDialog(null, "Welcome to War!"+
-			"\nHere are the rules: \nEach round is separated by 5 seconds.", "War", 
+			"\nHere are the rules: \nEach round is separated by 5 seconds.", "War!", 
 			JOptionPane.PLAIN_MESSAGE);
 		JOptionPane.showMessageDialog(null, "The top card from each deck is drawn." + 
 			"\nThe player with the highest value card wins the round. \nThat player then"+
@@ -28,7 +28,7 @@ public class war {
 		JOptionPane.showMessageDialog(null, "If there is no winner after 1000 rounds" +
 			"\nhave been played, the player with \nthe most remaining cards wins.", "Rules",
 			JOptionPane.PLAIN_MESSAGE);
-		JOptionPane.showMessageDialog(null, "Time to play!", "War", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Time to play!", "War!", JOptionPane.PLAIN_MESSAGE);
 		
 		while (hasCards(playerDeck) && hasCards(computerDeck)) {
 			playRound(playerDeck, computerDeck);
