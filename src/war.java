@@ -1,63 +1,66 @@
-//	Test everything using Scanner first and switch to JOptionPane when we're all done.
-
-import java.util.*;
 
 import javax.swing.*;
 
-import java.awt.*;
-
-//	Let's play a game of War!
 public class war {
-	public static Card[] deck = new Card[52];
-	public static Card[] playerDeck = new Card[52];
+	public static Card[] deck         = new Card[52];
+	public static Card[] playerDeck   = new Card[52];
 	public static Card[] computerDeck = new Card[52];
-	public static int roundsPlayed, numberOfWars;
+	public static int roundsPlayed;
+	
 	public static void main(String[] args) throws InterruptedException {
-		Scanner input = new Scanner(System.in);
-		int dialogueResponse;
 		
 		deck = makeDeck();
 		dealHands(deck);
 		shufflePlayerDeck(playerDeck);
 		shufflePlayerDeck(computerDeck);
 		
+		JOptionPane.showMessageDialog(null, "Welcome to War!"+
+			"\nHere are the rules: \nEach round is separated by 5 seconds.", "War", 
+			JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, "The top card from each deck is drawn." + 
+			"\nThe player with the highest value card wins the round. \nThat player then"+
+			" takes all cards that were played. \nIf both cards have the same value, war "+
+			"is declared.", "Rules", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Whenever war occurs, 3 cards are taken"    + 
+			"\nfrom each player's deck and put in the pile. \nThe next card from each " +
+			"deck is then played.\nIf war occurs and a player" +" does not have \nat "  +
+			"least 4 cards in their deck, they lose!", "Rules", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, "If there is no winner after 1000 rounds" +
+			"\nhave been played, the player with \nthe most remaining cards wins.", "Rules",
+			JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Time to play!", "War", JOptionPane.PLAIN_MESSAGE);
+		
 		while (hasCards(playerDeck) && hasCards(computerDeck)) {
-			System.out.println("Card Count: \nPlayer One: " + numCardsRemaining(playerDeck) 
-					+ "\nPlayer Two: " + numCardsRemaining(computerDeck) + "\n");
 			playRound(playerDeck, computerDeck);
-			
 				
-			if (!hasCards(playerDeck))
-				System.out.println("Player One is out of cards! \nPlayer Two Wins!");
-			if (!hasCards(computerDeck))
-				System.out.println("Player Two is out of cards! \nPlayer One Wins!");
+			if (!hasCards(playerDeck)) {
+				JOptionPane.showMessageDialog(null,"Player One is out of cards!" +
+					"\nPlayer Two Wins!");
+			}
+			if (!hasCards(computerDeck)){
+				JOptionPane.showMessageDialog(null, "Player Two is out of cards!" +
+					"\nPlayer One Wins!");
+			}
 			if (roundsPlayed == 1000) {
-				System.out.println("Game over.");
-				System.out.println("Number of wars: " + numberOfWars);
-				
 				if (numCardsRemaining(playerDeck) > numCardsRemaining(computerDeck)) {
-					System.out.println("Player One Wins!");
+					JOptionPane.showMessageDialog(null, "Round limit reached." +
+						"\nPlayer One Wins!");
 				}
 				else if (numCardsRemaining(playerDeck) < numCardsRemaining(computerDeck)) {
-					System.out.println("Player Two Wins!");
+					JOptionPane.showMessageDialog(null, "Round limit reached." +
+						"\nPlayer Two Wins!");
 				}
 				else if (numCardsRemaining(playerDeck) == numCardsRemaining(computerDeck)) {
-					System.out.println("The game ends in a Draw!");
+					JOptionPane.showMessageDialog(null, "Round limit reached." + 
+						"\nThe game ends in a Draw!");
 				}
 				System.exit(0);
 			}
 		}
-		
-		
-		//for (int i=0; i < 26; i++) {
-		//	System.out.println(myHand[i].rank + " of " + myHand[i].suit);
-		//}
-		//System.out.println(countCards(deck));
 	}
 	
 	public static Card[] makeDeck() {
 		// Initializes and shuffles the deck.
-		
 		int temp1, temp2;
 		Card tempCard;
 	
@@ -95,13 +98,11 @@ public class war {
 			deck[temp1] = deck[temp2];
 			deck[temp2] = tempCard;
 		}
-		
 		return deck;
 	}
 	
 	public static void shufflePlayerDeck(Card[] deck) {
 		// Shuffles the deck of each player.
-		
 		int temp1, temp2;
 		Card tempCard;
 		
@@ -116,7 +117,6 @@ public class war {
 	
 	public static void dealHands(Card[] deck) {
 	// Deals the hands.
-		
 		for (int i=0; i<52; i++) {
 			if (i % 2 == 0) {
 				playerDeck[i/2] = deck[i];
@@ -126,16 +126,15 @@ public class war {
 		}
 	}	
 		
-	public static void playRound(Card[] playerDeck, Card[] computerDeck) throws InterruptedException {
+	public static void playRound(Card[] playerDeck, Card[] computerDeck) 
+		throws InterruptedException {
 		// Plays a round.
-		
 		Card[] pot = new Card[52];
 		Card playerOneCard, playerTwoCard;
-		int compResult;
+		int compResult, playerCardsLeft, computerCardsLeft;;
 		String roundResults;
 		
 		roundsPlayed++;
-		System.out.println("Next Round!");
 		
 		playerOneCard = playerDeck[0];
 		playerTwoCard = computerDeck[0];
@@ -146,12 +145,12 @@ public class war {
 		addCardToBottom(pot, playerTwoCard);
 		
 		compResult = compareCards(playerOneCard, playerTwoCard);
-		roundResults = printResults(playerOneCard, playerTwoCard);
-		WarGUI.showResults(playerOneCard, playerTwoCard, roundResults);
+		roundResults = roundResults(playerOneCard, playerTwoCard);
 		
+		if (compResult == 0)
+			WarGUI.showWarResults(playerOneCard, playerTwoCard);
 		
 		while (compResult == 0) {
-			numberOfWars++;
 			for (int i = 0; i < 3; i++) {
 				if (!hasCards(playerDeck) || !hasCards(computerDeck))
 					return;
@@ -160,7 +159,6 @@ public class war {
 				removeTopCard(playerDeck);
 				removeTopCard(computerDeck);
 			}
-			
 			if (!hasCards(playerDeck) || !hasCards(computerDeck))
 				return;
 			
@@ -173,10 +171,8 @@ public class war {
 			addCardToBottom(pot, playerTwoCard);
 			
 			compResult = compareCards(playerOneCard, playerTwoCard);
-			roundResults = printResults(playerOneCard, playerTwoCard);
-			WarGUI.showResults(playerOneCard, playerTwoCard, roundResults);
+			roundResults = roundResults(playerOneCard, playerTwoCard);
 		}
-			
 		if (compResult > 0) {
 			while (hasCards(pot)) {
 				addCardToBottom(playerDeck, pot[0]);
@@ -189,46 +185,40 @@ public class war {
 				removeTopCard(pot);
 			}
 		}
+		playerCardsLeft = numCardsRemaining(playerDeck);
+		computerCardsLeft = numCardsRemaining(computerDeck);
+		WarGUI.showResults(playerOneCard, playerTwoCard, roundResults, 
+			playerCardsLeft, computerCardsLeft);
 	}
 	
-	public static String printResults(Card playerOneCard, Card playerTwoCard) {
-		// Tells what card was drawn by each player, and which player wins or 
-		// if there is a war.
-		
+	public static String roundResults(Card playerOneCard, Card playerTwoCard) {
+		// Tells which player wins or if there is a war.
 		int result;
 		
-		System.out.println("Player one draws " + playerOneCard.rank+ " of " +
-				playerOneCard.suit);
-		System.out.println("Player two draws " + playerTwoCard.rank + " of " +
-				playerTwoCard.suit);
 		result = compareCards(playerOneCard, playerTwoCard);
 		
 		if (result == 0)
 			return "War!\n";
 		else if (result > 0)
-			return "Player one wins this round.\n";
+			return "Player One wins this round.";
 		else 
-			return "Player two wins this round.\n";
+			return "Player Two wins this round.";
 	}
 	
 	public static void removeTopCard(Card[] hand) {
 		// Removes the first card from the deck.
-		
 		for (int i = 0; i < hand.length-1; i++)
 			hand[i] = hand[i+1];
-		
 	}
 	
 	public static void addCardToBottom(Card[] deck, Card newCard) {
 		// Adds a won card to the winner's deck.
-		
 		for (int i = 0; i < deck.length; i++) {
 			if (deck[i] == null) {
 				deck[i] = newCard;
 				return;
 			}
 		}
-		
 	}
 	
 	public static int compareCards(Card card1, Card card2) {
@@ -236,7 +226,6 @@ public class war {
 		// A value of 0 means a tie, a positive value means player one's
 		// card is higher, and a negative value means player two's card
 		// is higher.
-		
 		if (card1.value == card2.value) 
 			return 0;
 		else if (card1.value == 1)
@@ -247,12 +236,10 @@ public class war {
 			return 1;
 		else 
 			return -1;
-		
 	}
 	
 	public static boolean hasCards(Card[] deck) {
 		// Checks to see if a deck has any cards in it.
-		
 		for (int i=0; i < deck.length; i ++) {
 			if (deck[i] != null)
 				return true;
@@ -262,7 +249,6 @@ public class war {
 	
 	public static int numCardsRemaining(Card[] deck) {
 		// Counts the number of cards in a deck and returns this value.
-		
 		int cardsLeft;
 		cardsLeft = 0;
 		
@@ -272,5 +258,4 @@ public class war {
 		}
 		return cardsLeft;
 	}
-	
 }
