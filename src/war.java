@@ -2,6 +2,8 @@
 import javax.swing.*;
 
 public class war {
+	// Written by: Andrew Steen and Malique Williams
+	// This program allows the user to play the card game war.
 	public static Card[] deck         = new Card[52];
 	public static Card[] playerDeck   = new Card[52];
 	public static Card[] computerDeck = new Card[52];
